@@ -14,6 +14,8 @@
 			<p>Siamo orgogliosi di aver supportato e lavorato con i seguenti collaboratori sui contenuti del sito.</p>
 			<p>Puoi donare dei satoshi via Lightning Network, premendo sul <a href="https://lightningaddress.com/" target="_blank">lightning address</a>. </p>
 			<p>Alcuni wallet compatibili sono <a href="https://breez.technology/" target="_blank">Breez</a> per mobile ed <a href="https://getalby.com/" target="_blank">Alby</a> come estensione browser </p>
+			
+			<Donation v-show="showModal" @close-modal="showModal = false" />
 
 			<div class="tbl-scroller">
 				<div class="tbl-wrapper">
@@ -31,6 +33,9 @@
 						</div>						
 						<div>
 							<a :href="'lightning:' + lineItem.donation.lnaddress" target="_blank">{{ lineItem.donation.lnaddress }}</a>
+							<!-- <Donation :peer="lineItem.peer" :donation="lineItem.donation" :v-show="showModal" @close-modal="showModal=false"/> -->
+								
+							<button  @click="showModal=true">Dona</button>
 						</div>
 					</div>
 				</div>
@@ -98,6 +103,8 @@ h3 {
 
 <script>
 
+import Donation from '~/components/Donation.vue'
+
 export default {
 		
 	name: 'PeersPage',
@@ -108,10 +115,12 @@ export default {
 			{ hid: 'description', name: 'description', content: 'A collection of people we have worked with in the past.' }
 		]
 	},
+	components: { Donation },
 	
 	data() {
 		return {
-		
+			showModal: false,
+			
 			contributors: [
 				{
 					peer: 'waltermaffy',
